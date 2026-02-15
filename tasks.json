@@ -1,0 +1,28 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "VoidOS: Assemble boot + stage2",
+      "type": "shell",
+      "command": "\"C:\\Users\\Voidexpunged\\AppData\\Local\\bin\\NASM\\nasm.exe\" -f bin boot.asm -o boot.bin && \"C:\\Users\\Voidexpunged\\AppData\\Local\\bin\\NASM\\nasm.exe\" -f bin stage2.asm -o stage2.bin",
+      "options": { "cwd": "C:\\voidos" },
+      "problemMatcher": []
+    },
+    {
+      "label": "VoidOS: Pack voidos.img",
+      "type": "shell",
+      "command": "powershell -ExecutionPolicy Bypass -File tools\\make_img.ps1 -Project C:\\voidos -ImgSizeMB 10",
+      "options": { "cwd": "C:\\voidos" },
+      "dependsOn": ["VoidOS: Assemble boot + stage2"],
+      "problemMatcher": []
+    },
+    {
+      "label": "VoidOS: Build ISO (mkisofs)",
+      "type": "shell",
+      "command": "\"C:\\mkisofs\\mkisofs.exe\" -o C:\\voidos\\voidos.iso -b voidos.img -no-emul-boot -boot-load-size 4 -boot-info-table C:\\voidos",
+      "options": { "cwd": "C:\\voidos" },
+      "dependsOn": ["VoidOS: Pack voidos.img"],
+      "problemMatcher": []
+    }
+  ]
+}
