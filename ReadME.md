@@ -1,0 +1,1 @@
+Feel free to make a distro in this very lightweight OS, but MAKE SURE to write the code in rust and other ones you want but also assembly language
